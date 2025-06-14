@@ -231,3 +231,63 @@ React.memo(Component, [compareFunction(prevProps, nextProps)]);
 	- 대부분의 상황에서 React는 Memoizing 된 Component 의 Re-Rendering을 피할 수 있으나, Rendering을 막기 위해
 	- Memoization에 너무 의존하면 안 된다. (버그 유발 가능성 존재)
 ---------------------------
+33. 얕은 비교 (Shallow Compare)
+	- 숫자, 문자열 등 원시 자료형은 값을 비교
+	- 배열, 객체 등 `참조 자료형`은 값 혹은 속성을 비교하지 않고, `참조되는 위치`를 `비교`
+		1. React.memo() 에서 props를 비교할 때
+		2. React Component가 Re-Rendering 하기 전
+			-	state 변경이 있을 때
+			- 부모 Component 가 Rendering 될 때
+---------------------------
+34. 깊은 비교
+	- 얕은 비교와 달리 객체의 경우에도 값으로 비교.
+		- Object Depth가 깊지 않은 경우 : JSON.stringify() 사용
+		- Object Depth가 깊은 경우 : lodash 라이브러리의 isEqual() 사용
+---------------------------
+35. React 가 Re-Rendering 되는 경우
+	- state 변경이 있을 때
+	- 부모 Component 가 Rendering 될 때
+	- 새로운 props 들어올 때
+	- shouldComponentUpdate에서 true가 반환될 때
+	- forceUpdate가 실행될 때
+---------------------------
+36. useCallback을 이용한 함수 최적화
+	- Component가 Rendering이 될 때 그 안에 있는 함수도 다시 생성
+	- 하지만, 똑같은 함수를 Component가 Re-Rendering 된다고 해서 계속 만드는 것은 좋은 현상이 아님.
+	- useCallback 은 Memoization 된 함수를 반환하는 함수
+	- 적용 : useCallback 안에 Callback 함수와 의존성 배열을 순서대로 넣는다.
+	- 함수 내 `참조하는 state, props`가 있으면 `의존성 배열에 추가`
+	- useCallback으로 인해 의존성 배열에 추가해 준 state 또는 props가 변하지 않는다면 함수 새로 생성 X
+		- 새로 생성되지 않기 때문에 메모리에 새로 할당되지 않고, 동일 참조 값 사용
+	- 의존성 배열에 아무것도 없을 경우, Component가 최초 Rendering 시에만 함수가 생성되고, 그 이후에는
+	- 동일한 참조 값을 사용하는 함수가 된다.
+```
+ex..
+const testFunction = useCallback(() => {}, []);
+```
+---------------------------
+37. 메모이제이션 (Memoization)
+	- 비용이 많이 드는 함수 호출의 결과를 저장하고, 동일한 입력이 다시 발생할 때 캐시된 결과를 반환하여
+	- 컴퓨터 프로그램의 속도를 높이는데 주로 사용되는 최적화 기술
+```
+ex..
+	function Component({ a, b }) {
+		const result = compute(a, b);
+		return (
+			<div>{result}</div>
+		);
+	}
+```
+---------------------------
+38. useMemo을 이용한 결과 값 최적화
+	- useMemo로 감싸준 후 첫번째 인수에 의존성 배열에 compute 함수에서 사용하는 값을 넣어줌.
+```
+ex..
+	function Component({ a, b }) {
+		const result = useMemo(() => compute(a, b), [a, b]);
+		return (
+			<div>{result}</div>
+		);
+	}
+```
+---------------------------
