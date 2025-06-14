@@ -209,3 +209,25 @@ rfce :: 함수형 Component 생성
 	- React는 Memoizing된 내용 재사용
 		- 메모이제이션(Memoization)
 			* 주어진 입력 값에 대한 결과를 저장함으로써 같은 입력 값에 대해 함수가 한 번만 실행되는 것을 보장
+---------------------------
+29. React Memo가 props를 비교하는 방법은?
+	- props 혹은 props의 객체를 비교할 때, `얕은 비교`를 함.
+---------------------------
+30. React Memo Props 비교 방식 수정
+	- 비교 방식을 원하는대로 수정하고 싶을 경우, React.memo()의 두 번째 매개변수로 비교 함수를 넣어주면 된다.
+```
+React.memo(Component, [compareFunction(prevProps, nextProps)]);
+```
+---------------------------
+31. React Memo 사용을 지양해야 하는 상황
+	- Rendering 될 때, props가 다른 경우가 대부분인 Component를 생각해보면, Memoization 기법의 이점을 얻기 힘듦.
+	- props가 자주 변하는 Component를 React.memo()로 래핑할지라도 React는 두 가지 작업을 Re-Rendering 할 때마다 수행
+		1. 이전 props와 다음 props의 동등 비교를 위해 비교 함수 수행
+		2. 비교 함수는 거의 항상 false를 반환할 것이기 때문에, React는 이전 Rendering 내용과 다음 Rendering 내용 비교
+	- 비교 함수의 결과는 대부분 `false`를 반환하기 때문에 `props 비교 불필요`
+---------------------------
+32. React.memo()는 Re-Rendering을 막기 위한 도구보다 성능 개선의 도구
+	- React에서는 성능 개선을 위한 하나의 도구로 Memoization 사용
+	- 대부분의 상황에서 React는 Memoizing 된 Component 의 Re-Rendering을 피할 수 있으나, Rendering을 막기 위해
+	- Memoization에 너무 의존하면 안 된다. (버그 유발 가능성 존재)
+---------------------------
