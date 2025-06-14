@@ -189,3 +189,23 @@ rfce :: 함수형 Component 생성
 	5번째 호출 : 16, 4, 4, [0, 1, 2, 3, 4], 20
 ```
 ---------------------------
+25. React Profilers
+	- React의 Profiler API를 사용하여 React 어플리케이션의 성능 병목 현상 식별하기 위해
+	- Rendering 되는 각 구성 요소에 대한 타이밍 정보를 수집
+---------------------------
+26. useEffect
+	- Component가 Rendering 될 때 특정 작업을 실행할 수 있도록 하는 Hook
+---------------------------
+27. fetch() 메소드
+	- 원격 API에 요청을 보내기 위해 사용할 수 있는 메소드
+	- 전역 fetch() 메소드는 네트워크에서 리소스를 가져오는 프로세스를 시작하여
+	-	`Response`(응답)을 사용할 수 있게 되면 이행된 `Promise`(약속)을 `Return`(반환).
+---------------------------
+28. React.memo()
+	- React의 경우, 먼저 Component를 Rendering 후, 이전 Rendering 결과와 비교하여 DOM 업데이트 결정
+	- 만약, Rendering 결과가 이전과 다르다면, React는 DOM 업데이트
+	- 만약, Component가 React.memo()로 감싸져 있을 경우, React는 Component를 Rendering 후 결과를 Memoizing
+	- 그리고, 다음 Rendering 일어날 때 Rendering 하는 Component의 props가 같다면
+	- React는 Memoizing된 내용 재사용
+		- 메모이제이션(Memoization)
+			* 주어진 입력 값에 대한 결과를 저장함으로써 같은 입력 값에 대해 함수가 한 번만 실행되는 것을 보장
