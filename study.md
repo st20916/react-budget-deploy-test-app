@@ -178,15 +178,15 @@ rfce :: 함수형 Component 생성
 		2. 현재 값 (cur)
 		3. 현재 인덱스 (idx)
 		4. 원본 배열 (src)
-```
+```js
 	[0, 1, 2, 3, 4].reduce(accumulator, currentValue, curentIndex, array) {
 		return accumulator + currentValue;
 	}, 10);
-	1번째 호출 : 10, 0, 0, [0, 1, 2, 3, 4], 10
-	2번째 호출 : 10, 1, 1, [0, 1, 2, 3, 4], 11
-	3번째 호출 : 11, 2, 2, [0, 1, 2, 3, 4], 13
-	4번째 호출 : 13, 3, 3, [0, 1, 2, 3, 4], 16
-	5번째 호출 : 16, 4, 4, [0, 1, 2, 3, 4], 20
+	// 1번째 호출 : 10, 0, 0, [0, 1, 2, 3, 4], 10
+	// 2번째 호출 : 10, 1, 1, [0, 1, 2, 3, 4], 11
+	// 3번째 호출 : 11, 2, 2, [0, 1, 2, 3, 4], 13
+	// 4번째 호출 : 13, 3, 3, [0, 1, 2, 3, 4], 16
+	// 5번째 호출 : 16, 4, 4, [0, 1, 2, 3, 4], 20
 ```
 ---------------------------
 25. React Profilers
@@ -215,7 +215,7 @@ rfce :: 함수형 Component 생성
 ---------------------------
 30. React Memo Props 비교 방식 수정
 	- 비교 방식을 원하는대로 수정하고 싶을 경우, React.memo()의 두 번째 매개변수로 비교 함수를 넣어주면 된다.
-```
+```js
 React.memo(Component, [compareFunction(prevProps, nextProps)]);
 ```
 ---------------------------
@@ -261,15 +261,15 @@ React.memo(Component, [compareFunction(prevProps, nextProps)]);
 		- 새로 생성되지 않기 때문에 메모리에 새로 할당되지 않고, 동일 참조 값 사용
 	- 의존성 배열에 아무것도 없을 경우, Component가 최초 Rendering 시에만 함수가 생성되고, 그 이후에는
 	- 동일한 참조 값을 사용하는 함수가 된다.
-```
-ex..
+```js
+// ex..
 const testFunction = useCallback(() => {}, []);
 ```
 ---------------------------
 37. 메모이제이션 (Memoization)
 	- 비용이 많이 드는 함수 호출의 결과를 저장하고, 동일한 입력이 다시 발생할 때 캐시된 결과를 반환하여
 	- 컴퓨터 프로그램의 속도를 높이는데 주로 사용되는 최적화 기술
-```
+```js
 ex..
 	function Component({ a, b }) {
 		const result = compute(a, b);
@@ -281,7 +281,7 @@ ex..
 ---------------------------
 38. useMemo을 이용한 결과 값 최적화
 	- useMemo로 감싸준 후 첫번째 인수에 의존성 배열에 compute 함수에서 사용하는 값을 넣어줌.
-```
+```js
 ex..
 	function Component({ a, b }) {
 		const result = useMemo(() => compute(a, b), [a, b]);
